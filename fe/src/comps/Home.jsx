@@ -14,7 +14,7 @@ const Home = () => {
         </button>
         <button
           className="bg-blue-gem-500 mt-2 px-4 py-2 rounded-md font-bold text-blue-gem-50"
-          onClick={() => navigate("/login")}
+          onClick={() => navigate("/register")}
         >
           Sign up
         </button>

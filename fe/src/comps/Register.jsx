@@ -1,33 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import appLogo from "./../assets/consent.png";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
+const data = JSON.parse(localStorage.getItem("user"))
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [age, setAge] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [dob, setDob] = useState("")
+  const [gen, setGen] = useState("S")
   const navigate = useNavigate()
 
-  const handleSignUp = async () => {
+
+  useEffect(() => {
+    console.log(data);
+    if (data?.email) {
+      navigate("/content")
+    }
+  }, [])
+
+  const handleSignUp = () => {
     axios.post("http://localhost:5000/register", {
-      name, email, password, age
+      name, email, password, dob, gen
     }).then((res) => {
-      console.log(res.data);
       if (res.data?.error) {
         console.log(res.data)
       } else {
+        localStorage.setItem("user", JSON.stringify(res.data))
         navigate("/content")
       }
     }
     )
   };
-  return (
-    <div className="flex items-center justify-center h-dvh">
 
+
+
+  return (
+    < div className="flex items-center justify-center h-dvh" >
       <div className="rounded-2xl border border-solid border-stone-300 w-[clamp(300px,90%,400px)]">
         <div className="flex flex-col p-4 items-center">
           <img src={appLogo} className="rounded-full mb-4" />
@@ -45,10 +56,10 @@ const Register = () => {
             />
           </div>
           <div className="flex w-full flex-col mb-4">
-            <label htmlFor="username">E-mail</label>
+            <label htmlFor="email">E-mail</label>
             <input
               type="text"
-              id="username"
+              id="email"
               className="input"
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -57,15 +68,23 @@ const Register = () => {
             />
           </div>
           <div className="flex w-full flex-col mb-4">
-            <label htmlFor="age">Age</label>
+            <label htmlFor="gen">Gender</label>
+            <select onChange={(e) => { setGen(e.target.value) }} defaultValue={gen} id="gen" className="input">
+              <option value="S" disabled={true}>Select gender</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </div>
+          <div className="flex w-full flex-col mb-4">
+            <label htmlFor="dob">DOB</label>
             <input
-              type="number"
-              id="age"
+              type="date"
+              id="dob"
               className="input"
               onChange={(e) => {
-                setAge(e.target.value);
+                setDob(e.target.value);
               }}
-              defaultValue={age}
+              defaultValue={dob}
             />
           </div>
           <div className="flex w-full flex-col mb-4">
@@ -88,8 +107,7 @@ const Register = () => {
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
-
 export default Register;

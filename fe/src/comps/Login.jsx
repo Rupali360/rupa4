@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import appLogo from "./../assets/consent.png";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSignin = () => {};
+
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"))
+    if (data?.email) {
+      navigate("/content")
+    }
+  }, [])
+
+
+  const handleSignin = () => {
+    axios.post("http://localhost:5000/login", {
+      email, password
+    }).then((res) => {
+      console.log(res.data);
+      if (res.data?.error) {
+        console.log(res.data)
+      } else {
+        localStorage.setItem("user", JSON.stringify(res.data))
+        navigate("/content")
+      }
+    }
+    ).catch((e) => { setError(e.data) })
+  };
+
   return (
     <div className="flex items-center justify-center h-dvh">
       <div className="rounded-2xl border border-solid border-stone-300 w-[clamp(300px,90%,400px)]">
@@ -34,9 +59,9 @@ const Login = () => {
               id="password"
               className="input"
               onChange={(e) => {
-                setPwd(e.target.value);
+                setPassword(e.target.value);
               }}
-              defaultValue={pwd}
+              defaultValue={password}
             />
           </div>
           <button

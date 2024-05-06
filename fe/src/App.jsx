@@ -1,7 +1,6 @@
 import React from "react";
 import "./output.css";
 import Login from "./comps/Login";
-import Onboard from "./comps/Onboard";
 import { Route, Routes } from "react-router-dom";
 import Error from "./comps/Error";
 import Home from "./comps/Home";
@@ -14,7 +13,6 @@ const App = () => {
     <div className="h-dvh">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/onboard" element={<Onboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/content" element={<Content />} />
