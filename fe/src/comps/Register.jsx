@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import appLogo from "./../assets/consent.png";
+import appLogo from "./../assets/consent.jpg";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
@@ -41,7 +41,7 @@ const Register = () => {
     < div className="flex items-center justify-center h-dvh" >
       <div className="rounded-2xl border border-solid border-stone-300 w-[clamp(300px,90%,400px)]">
         <div className="flex flex-col p-4 items-center">
-          <img src={appLogo} className="rounded-full mb-4" />
+          <img src={appLogo} className="rounded-full mb-4 size-24" />
           <h1 className="mb-6 font-bold text-xl">Sign up for Mysitename</h1>
           <div className="flex w-full flex-col mb-4">
             <label htmlFor="name">Name</label>

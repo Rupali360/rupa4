@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import appLogo from "./../assets/consent.png";
+import appLogo from "./../assets/consent.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -38,7 +38,7 @@ const Login = () => {
     <div className="flex items-center justify-center h-dvh">
       <div className="rounded-2xl border border-solid border-stone-300 w-[clamp(300px,90%,400px)]">
         <div className="flex flex-col p-4 items-center">
-          <img src={appLogo} className="rounded-full mb-4" />
+          <img src={appLogo} className="rounded-full mb-4 size-24" />
           <h1 className="mb-6 font-bold text-xl">Sign in to your account</h1>
           <div className="flex w-full flex-col mb-4">
             <label htmlFor="username">E-mail</label>
