@@ -22,18 +22,20 @@ const Content = () => {
       setAgeGroup("oldAged");
     } else {
       if (age > 25) {
-        setAgeGroup("middleAged");
+        setAgeGroup("youngerAdults");
       } else {
-        setAgeGroup("teen");
+        setAgeGroup("olderAdults");
       }
     }
-    console.log(Array.isArray(uri[lang][ageGroup]));
+    console.log(lang, ageGroup, videoIndex);
+    console.log(  (uri[lang][ageGroup]));
     const run = () => {
       setLink(
         `https://www.youtube.com/embed/${uri[lang][ageGroup]?.[videoIndex]}?controls=0`
       );
     };
     run();
+    console.clear()
   }, [lang, ageGroup, videoIndex]);
 
   const handleSignOut = async () => {
@@ -41,11 +43,11 @@ const Content = () => {
     navigate("/login");
   };
 
+
   return (
     <>
       <div className="h-dvh flex justify-center items-center p-4 flex-col container mx-auto">
         <select
-          name=""
           id="language"
           defaultValue={lang}
           onChange={(e) => {
