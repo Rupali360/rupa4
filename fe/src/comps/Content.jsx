@@ -4,33 +4,37 @@ import uri from "./../constants.js";
 
 const Content = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
   const [videoIndex, setVideoIndex] = useState(0);
   const [lang, setLang] = useState("english");
-  const [age, setAge] = useState(user?.age);
-  const [ageGroup, setAgeGroup] = useState(() => {
-    if (age > 50) {
-      return "oldAged";
-    } else {
-      if (age > 25) {
-        return "middleAged";
-      } else {
-        return "teen";
-      }
-    }
-  });
-  const [link, setLink] = useState(
-    `https://www.youtube.com/embed/${uri[lang][ageGroup][videoIndex]}?controls=0`
-  );
+  const [ageGroup, setAgeGroup] = useState("");
+  const [link, setLink] = useState("oxBuWZtjl0U");
 
   useEffect(() => {
     const data = localStorage.getItem("user");
     if (!JSON.parse(data)) {
       navigate("/login");
-    } else {
-      user;
     }
   }, []);
+
+  useEffect(() => {
+    const age = JSON.parse(localStorage.getItem("user")).age;
+    if (age > 50) {
+      setAgeGroup("oldAged");
+    } else {
+      if (age > 25) {
+        setAgeGroup("middleAged");
+      } else {
+        setAgeGroup("teen");
+      }
+    }
+    console.log(Array.isArray(uri[lang][ageGroup]));
+    const run = () => {
+      setLink(
+        `https://www.youtube.com/embed/${uri[lang][ageGroup]?.[videoIndex]}?controls=0`
+      );
+    };
+    run();
+  }, [lang, ageGroup, videoIndex]);
 
   const handleSignOut = async () => {
     localStorage.clear();
@@ -46,9 +50,7 @@ const Content = () => {
           defaultValue={lang}
           onChange={(e) => {
             setLang(e.target.value);
-            setLink(
-              `https://www.youtube.com/embed/${uri[lang][ageGroup][videoIndex]}?controls=0`
-            );
+            setLink(link);
           }}
         >
           <option value="english">English</option>
