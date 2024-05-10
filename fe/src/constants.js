@@ -8,7 +8,7 @@ const uri = {
     oldAged: ["9eoZBhUNJbI", "QkUuhceGGC0", "4D9zGr91UwY", "NWfYC_HRPgM", "OLsfFoZRsIw"],
     middleAged: ["9eoZBhUNJbI", "vTz63cgADiw", "4W2eXgZiWbE", "5vgVNFoL86U", "f1fToNHFxGk", "Cg6MmVx8N0c", "g4WwIL_SUww", "YgHj29gFRGc", "pmwvBeY2dgU", "n70lPPuoKGA"],
     teen: ["9eoZBhUNJbI", "UL2UnmbX8t4", "lyJ2mynaqfc", "NWfYC_HRPgM", "OLsfFoZRsIw"],
-  }, 
+  },
 };
 
 export default uri;

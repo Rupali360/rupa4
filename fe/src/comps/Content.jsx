@@ -4,13 +4,15 @@ import uri from "./../constants.js";
 
 const Content = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
   const [videoIndex, setVideoIndex] = useState(0);
   const [lang, setLang] = useState("english");
+  const [age, setAge] = useState(user?.age);
   const [ageGroup, setAgeGroup] = useState(() => {
-    if (22 > 50) {
+    if (age > 50) {
       return "oldAged";
     } else {
-      if (22 > 25) {
+      if (age > 25) {
         return "middleAged";
       } else {
         return "teen";
@@ -25,6 +27,8 @@ const Content = () => {
     const data = localStorage.getItem("user");
     if (!JSON.parse(data)) {
       navigate("/login");
+    } else {
+      user;
     }
   }, []);
 
@@ -42,7 +46,9 @@ const Content = () => {
           defaultValue={lang}
           onChange={(e) => {
             setLang(e.target.value);
-            setLink(`https://www.youtube.com/embed/${uri[lang][ageGroup][videoIndex]}?controls=0`)
+            setLink(
+              `https://www.youtube.com/embed/${uri[lang][ageGroup][videoIndex]}?controls=0`
+            );
           }}
         >
           <option value="english">English</option>
