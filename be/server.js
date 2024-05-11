@@ -4,7 +4,9 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin:"http://localhost:5173"
+}));
 app.use(express.json());
 
 function calculateAge(dateOfBirth) {
@@ -52,7 +54,7 @@ app.post("/register", async (req, res) => {
       });
     }
   } else {
-    res.status(400).send({
+    res.status(200).send({
       error: {
         code: 498,
         msg: "All fields are mandatory.",
@@ -65,8 +67,8 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     const user = await userschema.findOne({ email });
-    const isAuthourized = password == user.password;
     if (user) {
+      const isAuthourized = password == user.password;
       if (isAuthourized) {
         res.status(201).send({
           name: user.name,
@@ -76,7 +78,7 @@ app.post("/login", async (req, res) => {
           age: user.age,
         });
       } else {
-        res.status(498).send({
+        res.status(200).send({
           error: {
             code: 498,
             msg: "wrong password.",
@@ -84,7 +86,7 @@ app.post("/login", async (req, res) => {
         });
       }
     } else {
-      res.status(400).send({
+      res.status(200).send({
         error: {
           code: 498,
           msg: "This email does not associated with us.",
@@ -92,7 +94,7 @@ app.post("/login", async (req, res) => {
       });
     }
   } else {
-    res.status(400).send({
+    res.status(200  ).send({
       error: {
         code: 498,
         msg: "All fields are mandatory.",

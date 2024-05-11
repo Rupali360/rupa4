@@ -27,15 +27,12 @@ const Content = () => {
         setAgeGroup("olderAdults");
       }
     }
-    console.log(lang, ageGroup, videoIndex);
-    console.log(  (uri[lang][ageGroup]));
     const run = () => {
       setLink(
         `https://www.youtube.com/embed/${uri[lang][ageGroup]?.[videoIndex]}?controls=0`
       );
     };
     run();
-    console.clear()
   }, [lang, ageGroup, videoIndex]);
 
   const handleSignOut = async () => {

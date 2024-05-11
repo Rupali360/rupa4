@@ -10,30 +10,33 @@ const Login = () => {
   const [error, setError] = useState("");
 
 
-
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"))
+    const data = JSON.parse(localStorage.getItem("user"));
     if (data?.email) {
-      navigate("/content")
+      navigate("/content");
     }
-  }, [])
+  }, []);
 
 
   const handleSignin = () => {
-    axios.post("http://localhost:5000/login", {
-      email, password
-    }).then((res) => {
-      console.log(res.data);
-      if (res.data?.error) {
-        console.log(res.data)
-      } else {
-        localStorage.setItem("user", JSON.stringify(res.data))
-        navigate("/content")
-      }
-    }
-    ).catch((e) => { setError(e.data) })
+    axios
+      .post("http://localhost:5000/login", {
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data?.error) {
+          setError(res.data.error.msg);
+        } else {
+          localStorage.setItem("user", JSON.stringify(res.data));
+          navigate("/content"); 
+        }
+      })
+      .catch((e) => {
+        console.log(e.responce);
+      });
   };
-
   return (
     <div className="flex items-center justify-center h-dvh">
       <div className="rounded-2xl border border-solid border-stone-300 w-[clamp(300px,90%,400px)]">
@@ -70,6 +73,9 @@ const Login = () => {
           >
             Login
           </button>
+          <div className="mt-4 text-sm text-red-500">
+            {error && <div>{error}</div>}
+          </div>
           <div className="mt-4">
             <Link
               to={"/register"}
@@ -80,7 +86,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {error && <div>{error}</div>}
     </div>
   );
 };
